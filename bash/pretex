@@ -7,21 +7,36 @@ engine=pdflatex
 output=${1%.*}
 path=/usr/local/texlive/2008basic/bin/universal-darwin/
 
-while getopts o:e: arg
+while getopts o:e:h arg
 do  case "$arg" in
     e)  engine="$OPTARG";;
     o)  output=${OPTARG%.*};;
-    [?])    echo >&2 "Usage: $0 [-e engine] [-o <output base name>] texfile"
-        exit 1;;
+    h)  echo "pretex: A simple utility for precompiling LaTeX Headers.";
+        echo "";
+        echo "Usage: `basename $0` -h [-e engine] [-o <output base name>] texfile";
+        echo "";
+        echo "Options:";
+        echo "";
+        echo "      -e        Specify the name of you favorite LaTeX program (defaults to";
+        echo "                  pdflatex).";
+        echo "";
+        echo "      -o        Specify the basename of your main .tex file (default is to";
+        echo "                  append a .fmt to the input basename)";
+        echo "";
+        echo "      -h        Print out this message.";
+        echo "";;
+    [?])  echo "Usage: `basename $0` -h [-e engine] [-o <output base name>] texfile";
+          echo "try pretex -h for help";
+          stop 1;;
     esac
 done
 
 shift $(($OPTIND-1))
 
-if [ $(test "$1") ]
+if [[ -z "$1" ]]
 then        # -n tests to see if the argument is non empty
-    echo "$0: no input file"
-    echo >&2 "Usage: $0 [-e engine] [-o <output base name>] texfile"
+    echo "`basename $0`: no input file"
+    echo "try pretex -h for help"
     exit 1
 fi
 
