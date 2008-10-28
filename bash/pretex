@@ -1,10 +1,19 @@
 #!/bin/bash
 
-#makes the command pretex available which will precompile
+#Makes the command pretex available which will precompile
 #your latex file (such as a header)
+#
+#Type:
+#
+#pretex -h 
+#
+#For Usage options
 #
 #Author: Cameron Bracken
 #
+#Last Modified: 2008 Oct 28
+#
+#Licence: GNU General Public License v3
 
 engine=pdflatex
 output=${1%.*}
@@ -26,6 +35,13 @@ do  case "$arg" in
         echo "                  append a .fmt to the input basename)";
         echo "";
         echo "      -h        Print out this message.";
+        echo "";
+        echo "eg.";
+        echo "For a main document main.tex and a header file preamble.tex";
+        echo "      pretex -o main preamble.tex"
+        echo "Then put the line";
+        echo "      %&main";
+        echo "At the top of main.tex"
         echo "";;
     [?])  echo "Usage: `basename $0` -h [-e engine] [-o <output base name>] texfile";
           echo "try pretex -h for help";
