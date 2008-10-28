@@ -1,0 +1,12 @@
+#!/usr/bin/Rscript
+
+library(cacheSweave)
+
+args <- commandArgs(T)
+
+fname <- strsplit(args[1],'\\.')[[1]][1]
+
+Sweave(paste(fname,'Rnw',sep='.'),driver=cacheSweaveDriver())
+
+system(paste('pdflatex',paste(fname,'tex',sep='.')))
+
