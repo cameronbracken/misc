@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#makes the command pretex available which will precompile
+#your latex file (such as a header)
+
+engine=pdflatex
+output=${1%.*}
+
+while getopts o:e: arg
+do  case "$arg" in
+    e)  engine="$OPTARG";;
+    o)  output=${OPTARG%.*};;
+    [?])    echo >&2 "Usage: $0 [-e engine] [-o <output base name>] texfile"
+        exit 1;;
+    esac
+done
+shift $(($OPTIND-1))
+
+if [ -n $1 ] 
+then        # -n tests to see if the argument is non empty
+    echo "$0: no input file"
+    echo >&2 "Usage: $0 [-e engine] [-o <output base name>] texfile"
+fi
+
+
+call="$engine -ini -jobname='$output' '&$engine $1\dump'"
+echo executing: $call
+#$call

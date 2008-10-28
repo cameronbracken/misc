@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#makes the command eps2pgf available
+
+call="java -jar /usr/local/eps2pgf/eps2pgf.jar"
+echo executing: $call $@
+$call $@
