@@ -2,10 +2,12 @@
 
 #makes the command pretex available which will precompile
 #your latex file (such as a header)
+#
+#Author: Cameron Bracken
+#
 
 engine=pdflatex
 output=${1%.*}
-path=/usr/local/texlive/2008basic/bin/universal-darwin/
 
 while getopts o:e:h arg
 do  case "$arg" in
