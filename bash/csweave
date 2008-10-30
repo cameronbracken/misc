@@ -1,12 +1,18 @@
 #!/usr/bin/Rscript
 
-library(cacheSweave)
-
+library(pgfWeave)
 args <- commandArgs(T)
 
 fname <- strsplit(args[1],'\\.')[[1]][1]
 
+#Run Sweave
 Sweave(paste(fname,'Rnw',sep='.'),driver=cacheSweaveDriver())
 
-system(paste('pdflatex',paste(fname,'tex',sep='.')))
+cat('Compiling PGF graphics as externals, file is',paste(fname,'sh',sep='.'),'\n')
+cmds <- readLines(paste(fname,'sh',sep='.'))
+cmds <- sub('%MAIN',paste(fname,'tex',sep='.'),cmds)
+dummy <- lapply(cmds,system)
+
+#Run Latex
+system(paste('pdflatex --jobname=',fname,' ',paste(fname,'tex',sep='.'),sep=''))
 
