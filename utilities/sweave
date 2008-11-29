@@ -3,6 +3,6 @@ args <- commandArgs(T)
 
 fname <- strsplit(args[1],'\\.')[[1]][1]
 
-Sweave(paste(fname,'Rnw',sep='.'))
+Sweave(paste(fname,'Rnw',sep='.'),stylepath = TRUE)
 
 system(paste('pdflatex',paste(fname,'tex',sep='.')))

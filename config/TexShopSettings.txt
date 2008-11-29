@@ -1,0 +1,25 @@
+defaults write TeXShop ConsoleWindowAlpha .75
+
+defaults write TeXShop OtherTrashExtensions -array-add "bbl"
+
+defaults write TeXShop background_R 0.87
+defaults write TeXShop background_G 0.86
+defaults write TeXShop background_B 0.76
+
+defaults write TeXShop background_R 0.898
+defaults write TeXShop background_G 0.894
+defaults write TeXShop background_B 0.886
+
+defaults write TeXShop markerred 1
+defaults write TeXShop markergreen 0
+defaults write TeXShop markerblue 0
+
+defaults write TeXShop commandred 0
+defaults write TeXShop commandgreen 0
+defaults write TeXShop commandblue 1
+
+defaults write TeXShop commentred 0
+defaults write TeXShop commentgreen .5
+defaults write TeXShop commentblue 0
+
+
