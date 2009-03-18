@@ -1,0 +1,263 @@
+\documentclass[11pt]{article}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[parfill]{parskip}
+%\usepackage{graphicx}
+%\usepackage[usenames]{colors}
+\usepackage{mathpazo}
+%\usepackage[scaled=.92]{couriers}
+
+\usepackage[noae,nogin]{Sweave}
+
+\newenvironment{myen}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}{\end{enumerate}
+}
+\newenvironment{myit}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}{\end{itemize}
+}
+
+\title{Introduction to R}
+\author{Cameron Bracken and Colin Sheppard}
+\date{18 September 2008}
+
+\begin{document}
+
+\SweaveOpts{prefix.string=figs/fig,eps=F}
+
+\pagestyle{empty}
+\begin{center}{\Huge The wonderful world of R}{\\Cameron Bracken and Colin Sheppard}{\\26 February 2009}\end{center}
+
+
+\section{What is R?}
+
+\verb"http://www.r-project.org/about.html":
+\begin{quote}
+R is a language and environment for statistical computing and graphics. It is a GNU project which is similar to the S language and environment which was developed at Bell Laboratories (formerly ATT, now Lucent Technologies) by John Chambers and colleagues.
+
+R provides a wide variety of statistical (linear and nonlinear modelling, classical statistical tests, time-series analysis, classification, clustering, ...) and graphical techniques, and is highly extensible.
+
+One of R's strengths is the ease with which well-designed publication-quality plots can be produced, including mathematical symbols and formulae where needed.
+\end{quote}
+
+\noindent More concisely R is:
+\begin{myit}
+\item A powerful interpreted programming language,
+\item A data analysis and visualization tool,
+\item Very addicting once you get the hang of it.
+\end{myit}
+
+\section{Getting Started}
+
+\subsection{Installation}
+R can easily be installed for most any operating systems, visit: 
+
+\begin{verbatim}
+http://www.r-project.org/
+\end{verbatim}
+
+
+\subsection{The Interface}
+To start R in windows open \verb"R.exe", in Mac OS X open \verb"R.app", in Linux or Mac OS X type \verb"R" on the command line.  
+
+\subsection{Data Types}
+The basic data types in R are:
+
+\begin{myit}
+	\item {\bf Integer}, eg. \verb"x <- 5"
+	\item {\bf Numeric}, eg. \verb"x <- pi/2"
+	\item {\bf Logical}, eg. \verb"x <- TRUE"
+	\item {\bf Character}, eg. \verb'x <- "foo"'
+\end{myit}
+You may have noticed the \verb"<-" assignment operator.  This works in both ways, eg. \verb"5 -> x". The \verb'=' operator is equivalent to the \verb"<-" operator.  
+
+All of the above examples result in \verb'x' as a scalar.  There are a few way of collecting scalars into a single variable:
+ 
+\begin{itemize}
+\item {\bf Vector} - A one dimensional collection of scalers with no orientation (there are no such things as column or row vectors). Vectors have a single data type depending on their contents.  Eg. \verb"x <- 1:5" or \verb"x <- c(1,2,3,4,5)" are identical integer vectors and \verb'y = c("foo","bar")' is a character vector.  The \verb'c()' function sticks things together into vectors.
+
+Individual elements can be extracted or assigned brackets.  Eg. If \verb"x = 1:5" then \verb"x[1]" would give back \verb"1".  Also subsets of vectors can also be vectors, eg., if \verb'y = c("a","b","c","d")', \verb"y[c(1,2,3)]" would give back the vector \verb'c("a","b","c")'.
+
+\item {\bf Matrix} - A two dimensional collection of scalers. eg. \verb"x <- matrix(0,nrow=2,ncol=2)".  A matrix is subset with two indicies like \verb"x[1,1]".
+\item {\bf Data frame} - Is a matrix with column names which is particularly useful for regression. 
+\end{itemize}
+
+On top of all of this there is the list type which can hold any type of variable in each of its entries.  For example, If \begin{verbatim}L <- list(x = 1:5, y = c("foo","bar"))\end{verbatim} then we can extract the first entry using \verb"L[[1]]" or by \verb"L$x".
+
+\section{First Example - Data manipulation}
+
+We have a data file that has four well defined columns and a fifth that may or may not exist, a tricky problem with Fortran that is trivial with R. 
+
+To load a local file without using absolute paths we need to set the working directory using the \verb"setwd('/path/to/data')", just like the cd command in unix.  
+
+<<subsetting,fig=T>>=
+cat('First read in the data file\n')
+dat <- read.table('plant-inflow.txt',fill=T,header=T)
+dat[1:10,]
+
+cat('Remove all of the values flagged as questionable and the missing values\n')
+dat <- dat[is.na(dat$Questionable),]
+dat[dat$PlantInfluent>10 | dat==-9999 | dat==-999]=NA
+
+cat('Create a vector of decimal years\n')
+years <- dat$Year + dat$Month/12 + dat$Day/365
+
+cat('And plot it\n')
+plot(years, dat$PlantInfluent, type='l',xlab='',ylab='AWTP Inflow (MGD)')
+@
+
+
+\section{Reading in a data file and creating a plot}
+
+Try this (you can download this file at \verb"http://www.humboldt.edu/%7Ecwb12/R/read-and-plot.R "):
+
+<<script,fig=T>>=
+d = read.table("http://www.humboldt.edu/%7Ecwb12/R/thermocouple.txt", header = T)
+
+d$Temp = 0.9662 * d$Temp - 0.9662
+
+fit = lm(Temp ~ Voltage, data = d)
+
+plot(d$Vexpected, d$Temp, 
+		col="red", 
+		pch=25, 
+		ylab = "Temperture [deg C]" ,
+		xlab = "Voltage [mV]")
+		
+points(d$Voltage, d$Temp)
+
+abline(fit)
+legtxt = c("Measured Voltage","Expected Voltage","Linear Data Fit")
+
+legend("topleft", legend = legtxt, 
+		col = c("black","red"), 
+		pch=c(1,25,-1), 
+		lty=c("blank","blank","solid"))
+		
+summary(fit)
+@
+
+
+\section{A really quick introduction to Sweave}
+
+This document was written with Sweave.  It is a program in R that will allow you to embed R code in your \LaTeX{} document.  In the basic form you put chunks of R code between some special tags. 
+\begin{verbatim}
+ <<>>=
+  #put your R code here
+ @
+\end{verbatim}
+The result of the R code shows up in your \LaTeX{} document (even plots).  Look it up if you are interested. 
+
+
+\section{Some more statistics examples}
+
+You can download this file at \verb"http://www.humboldt.edu/%7Ecwb12/R/read-and-plot.R "
+
+Create a population
+<<>>=
+p <- rnorm(100000, mean=500, sd=100)
+p[1:20] # first 20 values
+@
+Round data for simplification of display
+
+<<sample, fig=T>>=
+p <- round( p, 2 )
+
+hist(p) #create histogram
+ 
+mean(p) # true mean of population
+abline( v=mean(p), col="red" ) # vertical red line at the mean
+
+cat('Simple random sample of 5 values from population\n')
+
+sample(p,5)
+sample(p,5) 
+x <- sample(p,5)  # the 5 values we will work with
+x
+rug(x)  # graph them to the histogram
+@
+
+
+
+
+\section{Some additional Examples (To try on your own)}
+
+Use the command `help( t.test )' to bring up the help page
+<<>>=
+t.test(x, mu=100)  # t-test and confidence interval
+mean(x)
+sd(x)
+qt( .975, df=4 )   # 97.5th percentile of t-distribution
+@
+
+
+Duplicate 95\% confidence interval
+<<>>=
+mean( x ) - qt(.975, df=4) * sd(x) / sqrt(5)
+mean( x ) + qt(.975, df=4) * sd(x) / sqrt(5)
+@
+
+Duplicate t-statistic
+<<>>=
+tstat <- ( mean(x) - 100 ) / ( sd(x)/sqrt(5) )
+tstat
+@
+
+abs() is used below to ensure we get positive t-stat
+<<>>=
+2* pt( abs(tstat), df=4, lower.tail=F ) 
+@
+
+How about a simple probability experiment to demonstrate the concept of t.tests and type I error
+<<>>=
+pvals<-array(NA,100)
+for(i in 1:100){
+    x<-sample(p,5)
+    t.test(x,mu=500)->t
+    pvals[i]<-t$p.value
+}
+sum(pvals<.05)/length(pvals)
+@
+
+
+
+Let's compare the normal to the t distribution visually
+
+<<>>=
+x<-seq(-3,3,by=.05)
+plot(x,dnorm(x))
+plot(x,dnorm(x),type='l')
+lines(x,dt(x,df=10),col=2)
+lines(x,dt(x,df=5),col=3)
+abline(v=qt(.975,df=10),col=2)
+abline(v=qt(.975,df=5),col=3)
+abline(v=qnorm(.975),col=1)
+@
+
+
+Now let's play with a discrete pmf, the binomial distribution 
+<<>>=
+x<-1:50
+plot(x,dbinom(x,50,0.5))
+points(x,dbinom(x,50,0.2))
+@
+
+
+\section{Links}
+R Home page -
+\begin{verbatim}http://www.r-project.org/\end{verbatim}
+R Reference Card - 
+\begin{verbatim}http://cran.r-project.org/doc/contrib/Short-refcard.pdf\end{verbatim}
+A useful tutorial - 
+\begin{verbatim}http://www.cyclismo.org/tutorial/R\end{verbatim}
+\end{document}
+
+
+
+
+
+  
