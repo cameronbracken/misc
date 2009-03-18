@@ -1,0 +1,228 @@
+
+% Cameron Bracken's Resume
+% Created: 1 Sep 2007
+% Last Modified: 25 Sep 2008
+
+\documentclass[11pt,oneside]{article}
+\usepackage{geometry}
+\usepackage{mathpazo}
+\usepackage{courier}
+
+\pagestyle{empty}
+\geometry{letterpaper,tmargin=1.3cm,bmargin=1.3cm,lmargin=1.3cm,rmargin=1.3cm,headheight=0in,headsep=0in,footskip=0in}
+\usepackage{hyperref}
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0in}
+\setlength{\itemsep}{0in}
+\setlength{\topsep}{0in}
+\setlength{\tabcolsep}{0in}
+
+% Name and contact information
+\newcommand{\name}{Cameron Bracken}
+\newcommand{\addr}{12 E 15th St. Appt. 2}
+\newcommand{\phone}{707.825.6787}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New commands and environments
+
+% This defines how the name looks
+\newcommand{\bigname}[1]{
+	\begin{center}\Huge\scshape#1\end{center}
+}
+
+% A ressection is a main section (<H1>Section</H1>)
+\newenvironment{ressection}[1]{
+	\vspace{3pt}
+	{\Large#1}
+	\begin{itemize}
+	\vspace{2pt}
+}{
+	\end{itemize}
+}
+
+% A resitem is a simple list element in a ressection (first level)
+\newcommand{\resitem}[1]{
+	\vspace{-4pt}
+	\item \begin{flushleft} #1 \end{flushleft}
+}
+
+% A ressubitem is a simple list element in anything but a ressection (second level)
+\newcommand{\ressubitem}[1]{
+	\vspace{-1pt}
+	\item \begin{flushleft} #1 \end{flushleft}
+}
+
+% A resbigitem is a complex list element for stuff like jobs and education:
+%  Arg 1: Name of company or university
+%  Arg 2: Location
+%  Arg 3: Title and/or date range
+\newcommand{\resbigitem}[3]{
+	\vspace{-5pt}
+	\item
+	\textbf{#1}---#2 \\
+	\textit{#3}
+}
+
+% This is a list that comes with a resbigitem
+\newenvironment{ressubsec}[3]{
+	\resbigitem{#1}{#2}{#3}
+	\vspace{-2pt}
+	\begin{itemize}
+}{
+	\end{itemize}
+}
+
+% This is a simple sublist
+\newenvironment{reslist}[1]{
+	\resitem{\textbf{#1}}
+	\vspace{-5pt}
+	\begin{itemize}
+}{
+	\end{itemize}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now for the actual document:
+
+\begin{document}
+
+%\fontfamily{phv} \selectfont
+
+% Name with horizontal rule
+\bigname{\name}
+
+\vspace{-8pt} \rule{\textwidth}{1pt}
+
+\vspace{-1pt} {\small \textit{\addr} \hfill \href{mailto:cameron.bracken@gmail.com}{\texttt{cameron.bracken@gmail.com}}}\\
+\vspace{-1pt} {\small\textit{\phone} \hfill \href{http://cameron.bracken.bz/}{\texttt{http://cameron.bracken.bz/}}}
+
+
+\vspace{8 pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{ressection}{Goal}
+    
+    
+%      \resitem{Obtain a Summer 2008 internship at Sandia National %Laboratories working on fluid related statistical or physical modeling.}
+    
+
+%\end{ressection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{\scshape Education}
+
+	\begin{ressubsec}{Humboldt State University}{Arcata, CA}{Double Major in Environmental Resources Engineering and Applied Mathematics}
+		\ressubitem{GPA: 3.5 (overall), 3.5 (ERE major), 3.80 (Math major)}
+		\ressubitem{Projected Graduation Date: May, 2009}
+		\ressubitem{\begin{normalsize}\textit{Selected Courses}: 
+Computational Methods For Engineers 1, 2, 3,
+Environmental Systems Engineering, 
+Probabilistic Analysis of Environmental Systems, 
+Environmental Monitoring and Data Analysis, 
+Fluid Mechanics, 
+Advanced (vector) calculus, 
+ODEs, 
+PDEs, 
+Applied Stochastic Processes,
+River Hydraulics, 
+Transport Phenomena, 
+Thermodynamics, 
+Dynamical Systems, 
+Advanced Numerical Methods, 
+Hydrology, 
+Water Quality and Environmental Health,
+Hydrology 2 (time series analysis).
+\end{normalsize}}
+	\end{ressubsec}
+
+\end{ressection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{\scshape Experience}
+
+	\begin{ressubsec}{National Weather Service Student Researcher}{Eureka, CA}{Summer 2008 to present}
+		\ressubitem{Worked in a team to develop bar forecast for San Francisco Bay.}
+		\ressubitem{Prepared the Advanced Circulation (ADCIRC) and Simulating Waves Nearshore (SWAN) models.}
+		\ressubitem{Worked within and extended automated forecast framework.}
+		\ressubitem{Developed web interface to model results via Adobe Flex.}
+	\end{ressubsec}
+
+	\begin{ressubsec}{Environmental Fluids Research Experience for Undergraduates}{Unv. of Colorado, Boulder}{Summer 2007}
+		\ressubitem{Mentored by Dr. Balaji Rajagopalan in efforts to develop multi-site streamflow forecast framework.}
+		\ressubitem{Statistical analysis with R and MATLAB, data maniulation.}
+		\ressubitem{Work presented at American Geophysical Union Fall 2007 Conference.}
+	\end{ressubsec}
+
+\end{ressection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{\scshape Skills}
+    
+    \begin{reslist}{Modeling}
+      \resitem{Experience implementing: finite differences, finite elements, optimization, statistical forecasting, time series modeling, Monte Carlo simulation.}
+      \resitem{Experience with specific models: ADCIRC, SWAN, MODFLOW, RMA2, HEC-RAS, HEC-HMS.}
+    \end{reslist}
+
+	\begin{reslist}{Operating Systems:}
+		\resitem{Proficient with Mac OS X, Windows XP and Vista, Linux (Suse, Ubuntu, Fedora).}
+    \end{reslist}
+
+	\begin{reslist}{Computer Languages and Programs:}
+
+		\resitem{Proficient with R, Matlab, Fortran 90/95, \LaTeX, HTML, CSS, PHP, Python, Excel, Adobe Flex.}
+		\resitem{Familiar with Fortran 77, Perl, MySQL, C, C++, Adobe Illustrator, Adobe Photoshop.}
+
+	\end{reslist}
+
+
+
+\end{ressection}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{\scshape Awards}
+
+	\resitem{Roscoe-Schneller Award for outstanding potential in environmental resources engineering, Spring 2007 (\$500).}
+
+	\resitem{Robert S. Chambers Award for academic achievement in mathmatics, Spring 2007 (\$500).}
+
+	\resitem{Honorable mention, 2007 COMAP Mathematical Contest in Modeling (MCM).}
+	
+	\resitem{Honorable mention, 2008 COMAP Mathematical Contest in Modeling (MCM).}
+
+
+\end{ressection}
+
+\begin{ressection}{\scshape References}
+
+\resitem{Troy Nicolini\\
+Warning Coordination Meteorologist\\
+NOAA/NWS\\
+Eureka Weather Forecasting Office\\
+Phone: (707) 443-6484 ext. 223\\
+E-Mail: \href{mailto:troy.nicolini@noaa.gov}{\texttt{troy.nicolini@noaa.gov}}}
+
+\resitem{Dr. Balaji Rajagopalan\\
+Associate Professor\\
+Dept. of Civil, Environmental and Architectural Engg.\\
+University of Colorado Boulder\\
+Phone: (303) 492-5968\\
+E-mail: \href{mailto:balajir@spot.colorado.edu}{\texttt{balajir@spot.colorado.edu}}}
+
+\resitem{Dr. Brad Finney\\
+Professor\\
+Environmental Resources Engineering\\
+Humboldt State University, California\\
+Phone: (707) 826-3918
+E-mail: \href{mailto:baf1@humboldt.edu}{\texttt{baf1@humboldt.edu}}}
+
+\end{ressection}
+
+\end{document}
