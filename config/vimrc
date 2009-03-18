@@ -1,0 +1,77 @@
+"set term=builtin_ansi   "Not sure
+source ~/.comments.vim
+
+" load the r filetype
+augroup filetypedetect
+    au! BufRead,BufNewFile *.R     setfiletype r
+    au! BufRead,BufNewFile *.r     setfiletype r
+    au! BufRead,BufNewFile *.Rhistory     setfiletype r
+augroup END
+
+syntax enable               "Use syntax highlighting 
+set hls                     "highlight search terms
+set backspace=indent,eol,start
+
+
+set softtabstop=4       "treat four spaces as if they were tabs
+set expandtab           "insert spaces instead of tabs
+au FileType make setlocal noexpandtab "Turn off expand tab for make files
+":retab                 "convert existing tabs to spaces
+set tabstop=4           "make tabs 4 colums wide, also makes tab key enter 4 spaces
+                        "when :expandtab is used
+"set textwidth=80        "automaticall breaks after 80 characters
+set ruler               "show line and column number on bottom right corner of screen 
+" local syntax file - set colors on a per-machine basis:
+
+hi Comment term=bold ctermfg=Blue guifg=Red
+hi Normal guifg=black guibg=white
+hi Constant term=bold ctermfg=DarkGreen guifg=Magenta
+hi Special term=bold ctermfg=Red guifg=Magenta
+hi Identifier term=bold ctermfg=Black guifg=Blue
+hi Statement term=bold ctermfg=DarkGrey gui=NONE guifg=Brown
+hi PreProc term=bold ctermfg=DarkGrey guifg=Purple
+hi Type term=underline ctermfg=Blue gui=NONE guifg=Blue
+hi Visual term=reverse ctermfg=Yellow ctermbg=Red gui=NONE guifg=Black guibg=Yellow
+hi Search term=reverse ctermfg=Black ctermbg=Cyan gui=NONE guifg=Black guibg=Cyan
+hi Tag term=bold ctermfg=DarkGreen guifg=DarkGreen
+hi Error term=reverse ctermfg=15 ctermbg=9 guibg=Red guifg=White
+hi Todo term=standout ctermbg=Yellow ctermfg=Black guifg=Blue guibg=Yellow
+hi StatusLine term=bold,reverse cterm=NONE ctermfg=Yellow ctermbg=DarkGray gui=NONE guifg=Yellow guibg=DarkGray
+hi Keyword term=bold ctermfg=DarkGrey
+hi Character term=bold ctermfg=DarkGreen
+hi Conditional term=bold ctermfg=DarkGrey
+hi Repeat term=bold ctermfg=DarkGrey
+hi Label term=bold ctermfg=DarkGrey
+hi Number term=bold ctermfg=DarkGreen
+hi String term=bold ctermfg=DarkGreen
+hi Operator ctermfg=Red
+hi Delimiter ctermfg=Blue
+hi Function term=bold ctermfg=Blue
+hi LineNr ctermfg=Blue
+hi link MoreMsg Comment
+hi link ErrorMsg Visual
+hi link WarningMsg ErrorMsg
+hi link Question Comment
+hi link String	Constant
+hi link Character	Constant
+hi link Number	Constant
+hi link Boolean	Constant
+hi link Float		Number
+hi link Function	Identifier
+hi link Label		Statement
+"hi link Operator	Statement
+hi link Keyword	Statement
+hi link Exception	Statement
+hi link Include	PreProc
+hi link Define	PreProc
+hi link Macro		PreProc
+hi link PreCondit	PreProc
+hi link StorageClass	Type
+hi link Structure	Type
+hi link Typedef	Type
+hi link SpecialChar	Special
+hi link Delimiter	Special
+hi link SpecialComment Special
+hi link Debug		Special
+
+

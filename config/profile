@@ -1,0 +1,23 @@
+export PATH=$PATH:/opt/local:/opt/local/bin
+export MANPATH=$MANPATH:/opt/local/man
+export SVN_EDITOR=vim
+export EDITOR=vim
+
+#http://www.macosxhints.com/article.php?story=20031025162727485
+LSCOLORS=ExGxcxdxCxcgcdabagacad
+#LSCOLORS=exfxcxdxbxegedabagacad
+export LSCOLORS
+
+export PS1='\[\033[1;34m\]\u\[\033[0m\]:\[\033[1;32m\]\W\[\033[0m\]$ '
+
+alias ls='ls -G'
+alias ll='ls -lhG'
+#alias rm='rm -i'
+#alias cp='cp -i'
+#alias mv='mv -i'
+alias c='clear'
+
+# Setting PATH for MacPython 2.5
+# The orginal version is saved in .profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/Current/bin:${PATH}"
+export PATH
